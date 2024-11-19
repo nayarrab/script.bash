@@ -34,12 +34,17 @@ sudo netplan apply
 sudo apt install -y isc-dhcp-server iptables iptables-persistent
 
 cat <<EOF | sudo tee /etc/dhcp/dhcpd.conf
+# A slightly different configuration for an internal subnet.
 subnet 192.168.27.0 netmask 255.255.255.0 {
-    range 192.168.27.10 192.168.27.100;
-    option routers 192.168.27.1;
-    option domain-name-servers 8.8.8.8, 8.8.4.4;
+  range 192.168.27.10 192.168.27.100;
+  option domain-name-servers 192.168.27.1, 8.8.8.8, 8.8.4.4;
+  option subnet-mask 255.255.255.0;
+  option routers 192.168.27.1;
+  option broadcast-address 192.168.27.255;
+  default-lease-time 600;
+  max-lease-time 7200;
 }
-EOF
+EOF'
 
 sudo /etc/init.d/isc-dhcp-server restart 
 
