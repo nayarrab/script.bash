@@ -1,24 +1,54 @@
 #!/bin/bash
-echo "Installing DHCP server..."
-sudo apt update
-sudo apt install -y isc-dhcp-server
 
-echo "Configuring DHCP server..."
-sudo bash -c 'cat <<EOT > /etc/dhcp/dhcpd.conf
+set -e
+
+cat <<EOF | sudo tee /etc/apt/sources.list
+deb http://kartolo.sby.datautama.net.id/ubuntu/ focal main restricted universe multiverse
+deb http://kartolo.sby.datautama.net.id/ubuntu/ focal-updates main restricted universe multiverse
+deb http://kartolo.sby.datautama.net.id/ubuntu/ focal-security main restricted universe multiverse
+deb http://kartolo.sby.datautama.net.id/ubuntu/ focal-backports main restricted universe multiverse
+deb http://kartolo.sby.datautama.net.id/ubuntu/ focal-proposed main restricted universe multiverse
+EOF
+
+sudo apt update
+
+sudo apt install -y isc-dhcp-server iptables iptables-persistent
+
+cat <<EOF | sudo tee /etc/dhcp/dhcpd.conf
 subnet 192.168.27.0 netmask 255.255.255.0 {
     range 192.168.27.10 192.168.27.100;
     option routers 192.168.27.1;
     option domain-name-servers 8.8.8.8, 8.8.4.4;
 }
-EOT'
+EOF'
 
-INTERFACE="eth1.10"
-echo "Configuring DHCP interface..."
-sudo sed -i "s/^INTERFACESv4=.*/INTERFACESv4=\"$INTERFACE\"/" /etc/default/isc-dhcp-server
+sudo sed -i "s/^INTERFACESv4=.*/INTERFACESv4=eth1.10"/" /etc/default/isc-dhcp-server
 
-echo "Restarting DHCP server..."
 sudo systemctl restart isc-dhcp-server
-echo "Enabling DHCP server to start on boot..."
 sudo systemctl enable isc-dhcp-server
 
-echo "DHCP server setup completed."
+cat <<EOF | sudo tee /etc/netplan/00-installer-config.yaml
+network:
+  version: 2
+  ethernets: 
+    eth0:
+      dhcp4: true
+    eth1:
+      dhcp4: no
+  vlans:
+    eth1.10:
+      id: 10
+      link: eth1
+      addresses:
+        - 192.168.27.1/24     
+EOF
+
+sudo netplan apply
+
+sudo /etc/init.d/isc-dhcp-server restart
+
+sudo sysctl -w net.ipv4.ip_forward=1
+echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+sudo netfilter-persistent save
+
