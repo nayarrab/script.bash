@@ -31,7 +31,7 @@ EOF
 
 sudo netplan apply 
 
-sudo apt install -y isc-dhcp-server
+sudo apt install -y isc-dhcp-server iptables iptables-persistent
 
 cat <<EOF | sudo tee /etc/dhcp/dhcpd.conf
 subnet 192.168.27.0 netmask 255.255.255.0 {
@@ -52,3 +52,5 @@ sudo apt install -y iptables
 sudo sysctl -w net.ipv4.ip_forward=1
 echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf 
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE 
+
+sudo netfilter-persistent save
