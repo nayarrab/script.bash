@@ -12,7 +12,26 @@ EOF
 
 sudo apt update
 
-sudo apt install -y isc-dhcp-server iptables 
+cat <<EOF | sudo tee /etc/netplan/01-netcfg.yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      dhcp4: yes
+    eth1:
+      dhcp4: no
+  vlans:
+    eth1.10:
+      id: 10
+      link: eth1
+      addresses:
+        - 192.168.27.1/24     
+EOF
+
+sudo netplan apply
+
+sudo apt install -y isc-dhcp-server
 
 cat <<EOF | sudo tee /etc/dhcp/dhcpd.conf
 subnet 192.168.27.0 netmask 255.255.255.0 {
@@ -26,24 +45,6 @@ sudo sed -i "s/^INTERFACESv4=.*/INTERFACESv4=eth1.10"/" /etc/default/isc-dhcp-se
 
 sudo systemctl restart isc-dhcp-server
 sudo systemctl enable isc-dhcp-server
-
-cat <<EOF | sudo tee /etc/netplan/01-netcfg.yaml
-    network:
-      version: 2
-      ethernets: 
-        eth0:
-          dhcp4: true
-        eth1:
-          dhcp4: no
-      vlans:
-        eth1.10:
-          id: 10
-          link: eth1
-          addresses:
-            - 192.168.27.1/24     
-EOF
-
-sudo netplan apply
 
 sudo /etc/init.d/isc-dhcp-server restart
 
