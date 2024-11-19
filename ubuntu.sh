@@ -41,6 +41,8 @@ subnet 192.168.27.0 netmask 255.255.255.0 {
 }
 EOF
 
+sudo /etc/init.d/isc-dhcp-server restart 
+
 sudo sed -i 's/^INTERFACES4=.*/INTERFACESV4="eth1.10"/' /etc/default/isc-dhcp-server
 
 sudo /etc/init.d/isc-dhcp-server restart 
