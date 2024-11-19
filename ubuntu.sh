@@ -39,14 +39,13 @@ subnet 192.168.27.0 netmask 255.255.255.0 {
     option routers 192.168.27.1;
     option domain-name-servers 8.8.8.8, 8.8.4.4;
 }
-EOF'
-
-sudo sed -i "s/^INTERFACESv4=.*/INTERFACESv4=eth1.10"/" /etc/default/isc-dhcp-server
+EOF
 
 sudo systemctl restart isc-dhcp-server
 sudo systemctl enable isc-dhcp-server
-
 sudo /etc/init.d/isc-dhcp-server restart
+
+sudo sed -i "s/^INTERFACESv4=.*/INTERFACESv4=eth1.10"/" /etc/default/isc-dhcp-server
 
 sudo sysctl -w net.ipv4.ip_forward=1
 echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
