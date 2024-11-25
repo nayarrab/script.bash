@@ -1,24 +1,38 @@
 #!/bin/bash
 
-CISCO_IP="192.168.27.2"
-CISCO_USER="admin"
-CISCO_PASS="123"
+clear
 
-CONFIG_COMMANDS="
-enable
-configure terminal
-vlan 10
-name Management
-exit
-interface e0/0
-switchport trunk encapsulation dot1q
-switchport mode trunk
-exit
-interface e0/1
-switchport mode access
-switchport access vlan 10
-exit
-write memory
-"
+echo "======================================"
+echo "     Welcome to Nayarra Automation       "
+echo "======================================"
+echo "                                       "
+echo "    _   _   __     __  ______  ______  "
+echo "   | \ | |  \ \   / / |  ____||  ____| "
+echo "   |  \| |   \ \/ /  | |_   | |__    "
+echo "   | . ` |    \   /   |  __|  |  __|   "
+echo "   | |\  |     | |    | |____ | |____  "
+echo "   || \|     ||    |||_| "
+echo "                                       "
+echo "======================================"
+echo " Starting Cisco Configuration... "
+echo " 
 
-sshpass -p "$CISCO_PASS" ssh -o StrictHostKeyChecking=no "$CISCO_USER@$CISCO
+echo "[1/2] Configuring VLAN and Trunk..."
+echo "vlan 10" 
+
+echo "interface fastEthernet 0/0"
+echo "switchport trunk encapsulation dot1q"
+echo "switchport mode trunk"
+echo "switchport trunk allowed vlan 10"
+echo "exit"
+
+echo "interface fastEthernet 0/1"
+echo "switchport mode access"
+echo "switchport access vlan 10"
+echo "exit"
+
+echo "[2/2] Cisco Configuration Completed!"
+
+echo "======================================"
+echo " Cisco Configuration Completed!       "
+echo "======================================"
