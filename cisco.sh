@@ -2,20 +2,23 @@
 
 clear
 
+cat << "EOF" | lolcat
+,---.   .--.   ____       ____     __   .-''-.   
+|    \  |  | .'  __ `.    \   \   /  /.'_ _   \  
+|  ,  \ |  |/   '  \  \    \  _. /  '/ ( ` )   ' 
+|  |\_ \|  ||___|  /  |     _( )_ .'. (_ o _)  | 
+|  _( )_\  |   _.-`   | ___(_ o _)' |  (_,_)___| 
+| (_ o _)  |.'   _    ||   |(_,_)'  '  \   .---. 
+|  (_,_)\  ||  _( )_  ||   `-'  /    \  `-'    / 
+|  |    |  |\ (_ o _) / \      /      \       /  
+'--'    '--' '.(_,_).'   `-..-'        `'-..-'   
+                                                  
+EOF
+
 echo "======================================"
-echo "     Welcome to Nayarra Automation       "
+echo " Starting Cisco Switch Configuration... "
 echo "======================================"
-echo "                                       "
-echo "    _   _   __     __  ______  ______  "
-echo "   | \ | |  \ \   / / |  ____||  ____| "
-echo "   |  \| |   \ \/ /  | |_   | |__    "
-echo "   | . ` |    \   /   |  __|  |  __|   "
-echo "   | |\  |     | |    | |____ | |____  "
-echo "   || \|     ||    |||_| "
-echo "                                       "
-echo "======================================"
-echo " Starting Cisco Configuration... "
-echo " 
+
 
 echo "[1/2] Configuring VLAN and Trunk..."
 echo "vlan 10" 
@@ -34,5 +37,5 @@ echo "exit"
 echo "[2/2] Cisco Configuration Completed!"
 
 echo "======================================"
-echo " Cisco Configuration Completed!       "
+echo " Cisco Switch Configuration Completed! "
 echo "======================================"
