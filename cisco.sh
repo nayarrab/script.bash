@@ -17,7 +17,9 @@ echo " Starting Cisco Switch Configuration... "
 echo "======================================"
 
 
-echo "[1/2] Configuring VLAN and Trunk..."
+sshpass -p '0' ssh -o StrictHostKeyChecking=no admin@192.168.27.3 "
+enable
+cisco_enable_password
 echo "vlan 10" 
 
 echo "interface fastEthernet 0/0"
