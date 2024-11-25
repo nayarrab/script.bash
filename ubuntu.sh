@@ -8,7 +8,7 @@ fi
 clear
 
 echo "======================================"
-echo "     Welcome to Naye Automation       "
+echo "     Welcome to Nayarra Automation       "
 echo "======================================"
 echo "                                       "
 echo "    _   _   __     __  ______  ______  "
