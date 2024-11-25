@@ -32,9 +32,9 @@ echo "interface fastEthernet 0/1"
 echo "switchport mode access"
 echo "switchport access vlan 10"
 echo "exit"
-
-echo "[2/2] Cisco Configuration Completed!"
+echo "write memory"
 
 echo "======================================"
 echo " Cisco Switch Configuration Completed! "
 echo "======================================"
+EOF
