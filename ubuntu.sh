@@ -1,5 +1,27 @@
 #!/bin/bash
 
+if [ "$EUID" -ne 0 ]; then
+  echo "Please run as root"
+  exit
+fi
+
+clear
+
+echo "======================================"
+echo "     Welcome to Naye Automation       "
+echo "======================================"
+echo "                                       "
+echo "    _   _   __     __  ______  ______  "
+echo "   | \ | |  \ \   / / |  ____||  ____| "
+echo "   |  \| |   \ \/ /  | |_   | |__    "
+echo "   | . ` |    \   /   |  __|  |  __|   "
+echo "   | |\  |     | |    | |____ | |____  "
+echo "   || \|     ||    |||_| "
+echo "                                       "
+echo "======================================"
+echo " Starting DHCP Server Configuration... "
+echo "                                       "
+
 set -e 
 
 cat <<EOF | sudo tee /etc/apt/sources.list 
