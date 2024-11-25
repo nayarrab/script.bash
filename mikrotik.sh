@@ -2,19 +2,16 @@
 
 clear
 
-cat << "EOF" | lolcat
-,---.   .--.   ____       ____     __   .-''-.   
-|    \  |  | .'  __ `.    \   \   /  /.'_ _   \  
-|  ,  \ |  |/   '  \  \    \  _. /  '/ ( ` )   ' 
-|  |\_ \|  ||___|  /  |     _( )_ .'. (_ o _)  | 
-|  _( )_\  |   _.-`   | ___(_ o _)' |  (_,_)___| 
-| (_ o _)  |.'   _    ||   |(_,_)'  '  \   .---. 
-|  (_,_)\  ||  _( )_  ||   `-'  /    \  `-'    / 
-|  |    |  |\ (_ o _) / \      /      \       /  
-'--'    '--' '.(_,_).'   `-..-'        `'-..-'   
-                                                  
-EOF
-
+echo ",---.   .--.   ____       ____     __   .-''-.   "
+echo "|    \  |  | .'  __ \`.    \   \   /  /.'_ _   \  "
+echo "|  ,  \ |  |/   '  \  \    \  _. /  '/ ( \` )   ' "
+echo "|  |\_ \|  ||___|  /  |     _( )_ .'. (_ o _)  | "
+echo "|  _( )_\  |   _.-\`   | ___(_ o _)' |  (_,_)___| "
+echo "| (_ o _)  |.'   _    ||   |(_,_)'  '  \   .---. "
+echo "|  (_,_)\  ||  _( )_  ||   \`-'  /    \  \`-'    / "
+echo "|  |    |  |\ (_ o _) / \      /      \       /  "
+echo "'--'    '--' '.(_,_).'   \`-..-'        \`'-..-'   "
+echo "                                                 "
 echo "======================================"
 echo " Starting Mikrotik Configuration... "
 echo "======================================"
@@ -33,8 +30,7 @@ CONFIG_COMMANDS="
 
 echo "Starting configuration for MikroTik at $192.168.27.4..."
 
-# Kirim perintah konfigurasi menggunakan sshpass
-sshpass -p "0" ssh -o StrictHostKeyChecking=no "$admin@$192.168.27.4" << EOF
+sshpass -p "0" ssh -o StrictHostKeyChecking=no "$admin@$192.168.27.4" << EOF 
 $CONFIG_COMMANDS
 EOF
 
