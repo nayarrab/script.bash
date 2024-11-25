@@ -20,6 +20,7 @@ MIKROTIK_IP="192.168.27.4"
 MIKROTIK_USER="admin"      
 MIKROTIK_PASS="0"   
 
+sshpass -p "0" ssh -o StrictHostKeyChecking=no "$admin@$192.168.27.4"
 CONFIG_COMMANDS="
 /ip dhcp-client add interface=ether1 disabled=no
 /ip address add address=192.168.200.1/24 interface=ether2
@@ -29,10 +30,6 @@ CONFIG_COMMANDS="
 "
 
 echo "Starting configuration for MikroTik at $192.168.27.4..."
-
-sshpass -p "0" ssh -o StrictHostKeyChecking=no "$admin@$192.168.27.4" << EOF 
-$CONFIG_COMMANDS
-EOF
 
 echo "======================================"
 echo " Mikrotik Configuration Completed! "
