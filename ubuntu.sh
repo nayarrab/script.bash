@@ -21,7 +21,7 @@ cat << "EOF" | lolcat
 EOF
 
 echo "======================================"
-echo "Starting DHCP Server Configuration..."
+echo " Starting DHCP Server Configuration... "
 echo "======================================"
 
 set -e 
