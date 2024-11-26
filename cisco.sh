@@ -37,4 +37,3 @@ echo "write memory"
 echo "======================================"
 echo " Cisco Switch Configuration Completed! "
 echo "======================================"
-EOF
