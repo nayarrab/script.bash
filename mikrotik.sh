@@ -18,11 +18,10 @@ echo "======================================"
 
 IPNET="192.168.187.132"
 MIKROTIK_IP="192.168.200.1"
-MIKROTIK_S="192.168.200.0"
 MIKROTIK_PORT="30034"
-
 expect <<EOF > /dev/null 2>&1
-spawn telnet $IPNET $MPORT
+spawn telnet $IPNET $MIKROTIK_PORT
+
 expect "Mikrotik Login:" { send "admin\r" }
 expect "Password:" { send "\r" }
 expect ">" { send "n" }
