@@ -21,10 +21,9 @@ MIKROTIK_IP="192.168.200.1"
 MIKROTIK_S="192.168.200.0"
 MPORT="30034"
 
-expect << EOF > /dev/null
+expect <<EOF > /dev/null 2>&1
 spawn telnet $IPNET $MPORT
-expect "Mikrotik Login:"
-send "admin\r"
+expect "Mikrotik Login:" {send "admin\r"}
 
 expect "Password:"
 send "\r"
