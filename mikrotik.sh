@@ -17,7 +17,7 @@ echo " Starting Mikrotik Configuration... "
 echo "======================================"
 
 MIKROTIK_IP="192.168.187.132"
-MIKROTIK_PORT="30034"
+MIKROTIK_PORT="30033"
 expect <<EOF > /dev/null 2>&1
 spawn telnet $MIKROTIK_IP $MIKROTIK_PORT
 set timeout 22
