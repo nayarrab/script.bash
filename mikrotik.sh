@@ -52,3 +52,4 @@ expect "Select gateway" { send "192.168.200.1\r" }
 expect "Select DNS" { send "8.8.8.8\r" }
 expect "Configure DHCP server" { send "yes\r" }
 expect ">"
+EOF
