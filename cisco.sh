@@ -16,24 +16,25 @@ echo "======================================"
 echo " Starting Cisco Switch Configuration... "
 echo "======================================"
 
+echo -e "${Yellow}${PROGRES[11]}${NC}"
+CISCO_IP="192.168.187.138"
+CISCO_PORT="30013"
+expect <<EOF >/dev/null 2>&1
+spawn telnet $CISCO_IP $CISCO_PORT
+set timeout 22
 
-sshpass -p '0' ssh -o StrictHostKeyChecking=no admin@192.168.27.3 "
-enable
-0
-echo "vlan 10" 
-
-echo "interface fastEthernet 0/0"
-echo "switchport trunk encapsulation dot1q"
-echo "switchport mode trunk"
-echo "switchport trunk allowed vlan 10"
-echo "exit"
-
-echo "interface fastEthernet 0/1"
-echo "switchport mode access"
-echo "switchport access vlan 10"
-echo "exit"
-echo "write memory"
-
-echo "======================================"
-echo " Cisco Switch Configuration Completed! "
-echo "======================================"
+expect ">" { send "enable\r" }
+expect "(config)#" { send "configure terminal\r" }
+expect "(config)#" { send "interface Ethernet0/1\r" }
+expect "(config-if)#" { send "switchport mode access\r" }
+expect "(config-if)#" { send "switchport access vlan 10\r" }
+expect "(config-if)#" { send "no shutdown\r" }
+expect "(config-if)#" send "exit\r" }
+expect "(config)#" { send "interface Ethernet0/7\r" }
+expect "(config-if)#" { send "switchport trunk encapsulation dot1q\r" }
+expect "(config-if)#" { send "switchport mode trunk\r" }
+expect "(config-if)#" { send "no shutdown\r" }
+expect "(config-if)#" { send "exit\r" }
+expect "(config-if)#" { send "end" }
+expect eof
+EOF
