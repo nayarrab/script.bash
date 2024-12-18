@@ -26,16 +26,16 @@ expect ">" { send "enable\r" }
 expect "#" { send "configure terminal\r" }
 expect "(config)#" { send "vlan 10" }
 expect "(config-vlan)#" { send "exit\r" }
-expect "(config)#" { send "interface Ethernet0/1\r" }
-expect "(config-if)#" { send "switchport mode access\r" }
-expect "(config-if)#" { send "switchport access vlan 10\r" }
-expect "(config-if)#" { send "no shutdown\r" }
-expect "(config-if)#" send "exit\r" }
 expect "(config)#" { send "interface Ethernet0/0\r" }
 expect "(config-if)#" { send "switchport trunk encapsulation dot1q\r" }
 expect "(config-if)#" { send "switchport mode trunk\r" }
 expect "(config-if)#" { send "no shutdown\r" }
 expect "(config-if)#" { send "exit\r" }
+expect "(config)#" { send "interface Ethernet0/1\r" }
+expect "(config-if)#" { send "switchport mode access\r" }
+expect "(config-if)#" { send "switchport access vlan 10\r" }
+expect "(config-if)#" { send "no shutdown\r" }
+expect "(config-if)#" send "exit\r" }
 expect "(config-if)#" { send "end" }
 expect eof
 EOF
