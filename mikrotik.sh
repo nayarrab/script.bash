@@ -20,6 +20,7 @@ IPNET="192.168.187.132"
 MIKROTIK_PORT="30034"
 expect <<EOF > /dev/null 2>&1
 spawn telnet $IPNET $MIKROTIK_PORT
+set timeout 22
 
 expect "Mikrotik Login:" { send "admin\r" }
 expect "Password:" { send "\r" }
