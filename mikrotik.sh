@@ -19,7 +19,7 @@ echo "======================================"
 IPNET="192.168.187.132"
 MIKROTIK_IP="192.168.200.1"
 MIKROTIK_S="192.168.200.0"
-MPORT="30034"
+MIKROTIK_PORT="30034"
 
 expect <<EOF > /dev/null 2>&1
 spawn telnet $IPNET $MPORT
