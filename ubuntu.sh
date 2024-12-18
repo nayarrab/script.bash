@@ -70,7 +70,7 @@ EOF
 echo "[4/4] Restarting DHCP Server..."
 sudo /etc/init.d/isc-dhcp-server restart 
 
-sudo sed -i 's/^INTERFACES4=.*/INTERFACESV4="eth1.10"/' /etc/default/isc-dhcp-server
+sudo sed -i 's/^INTERFACESv4=.*/INTERFACESv4="eth1.10"/' /etc/default/isc-dhcp-server
 
 sudo /etc/init.d/isc-dhcp-server restart 
 
