@@ -82,6 +82,19 @@ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
 sudo netfilter-persistent save
 
+sudo sh -c "iptables-save > /etc/iptables/rules.v4" > /dev/null 2>&1 || error_message "${PROGRES[8]}"
+sudo sh -c "ip6tables-save > /etc/iptables/rules.v6" > /dev/null 2>&1 || error_message "${PROGRES[8]}"
+
+if ! command -v expect > /dev/null; then
+    sudo apt install -y expect > /dev/null 2>&1 || error_message "${PROGRES[9]}"
+else
+    success_message "${PROGRES[9]} sudah terinstal"
+fi
+
+sudo ip route add 192.168.200.0/24 via 192.168.27.2 || 
+
+echo -e 
+
 echo "======================================"
 echo " DHCP Server Configuration Completed! "
 echo "======================================"
