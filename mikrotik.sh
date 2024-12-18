@@ -16,21 +16,36 @@ echo "======================================"
 echo " Starting Mikrotik Configuration... "
 echo "======================================"
 
-MIKROTIK_IP="192.168.27.4" 
-MIKROTIK_USER="admin"      
-MIKROTIK_PASS="0"   
+expect {
+    "Password changed" {
+        puts "Password berhasil diubah."
+    }
+    "Try again. Error: New passwords do not match!" {
+        puts "Password tidak cocok. Ulangi pengisian password."
+        send "0\r"
+        expect "Repeat new password" { send "0\r" }
+        expect "Password changed" { puts "Password berhasil diubah." }
+    }
+    timeout {
+        puts "Login berhasil tanpa perubahan password."
+    }
+}
 
-sshpass -p "0" ssh -o StrictHostKeyChecking=no "$admin@$192.168.27.4"
-CONFIG_COMMANDS="
-/ip dhcp-client add interface=ether1 disabled=no
-/ip address add address=192.168.200.1/24 interface=ether2
-/ip pool add name=dhcp_pool_ether2 ranges=192.168.200.10-192.168.200.100
-/ip dhcp-server add address-pool=dhcp_pool_ether2 interface=ether2 lease-time=1h name=dhcp_server_ether2
-/ip dhcp-server network add address=192.168.200.0/24 gateway=192.168.200.1
-"
+expect ">" { puts "Konfigurasi MikroTik dimulai." }
 
-echo "Starting configuration for MikroTik at $192.168.27.4..."
+send "/ip address add address=192.168.200.1/24 interface=ether2\r"
+expect ">"
 
-echo "======================================"
-echo " Mikrotik Configuration Completed! "
-echo "======================================"
+send "/ip firewall nat add chain=srcnat out-interface=ether1 action=masquerade\r"
+expect ">"
+
+send "/ip route add gateway=192.168.27.1\r"
+expect ">"
+
+send "/ip dhcp-server setup\r"
+expect "Select interface" { send "ether2\r" }
+expect "Select address pool" { send "dhcp_pool\r" }
+expect "Select gateway" { send "192.168.200.1\r" }
+expect "Select DNS" { send "8.8.8.8\r" }
+expect "Configure DHCP server" { send "yes\r" }
+expect ">"
