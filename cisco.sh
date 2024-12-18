@@ -25,6 +25,8 @@ set timeout 22
 
 expect ">" { send "enable\r" }
 expect "(config)#" { send "configure terminal\r" }
+expect "(config)#" { send "vlan 10" }
+expect "(config-vlan)#" { send "exit/r" }
 expect "(config)#" { send "interface Ethernet0/1\r" }
 expect "(config-if)#" { send "switchport mode access\r" }
 expect "(config-if)#" { send "switchport access vlan 10\r" }
