@@ -18,7 +18,7 @@ echo "======================================"
 
 CISCO_IP="192.168.187.138"
 CISCO_PORT="30032"
-expect <<EOF > /dev/null 
+expect << EOF > /dev/null 
 spawn telnet $CISCO_IP $CISCO_PORT
 set timeout 22
 
