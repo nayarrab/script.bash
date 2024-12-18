@@ -16,32 +16,35 @@ echo "======================================"
 echo " Starting Mikrotik Configuration... "
 echo "======================================"
 
-expect {
-    "Password changed" {
-        puts "Password berhasil diubah."
-    }
-    "Try again. Error: New passwords do not match!" {
-        puts "Password tidak cocok. Ulangi pengisian password."
-        send "0\r"
-        expect "Repeat new password" { send "0\r" }
-        expect "Password changed" { puts "Password berhasil diubah." }
-    }
-    timeout {
-        puts "Login berhasil tanpa perubahan password."
-    }
-}
+IPNET="192.168.187.138"
+MIKROTIK_IP="192.168.200.1"
+MIKROTIK_S="192.168.200.0"
+MPORT="30034"
 
-expect ">" { puts "Konfigurasi MikroTik dimulai." }
+expect << EOF > /dev/null
+spawn telnet $IPNET $MPORT
+expect "Mikrotik Login:"
+send "admin\r"
 
+expect "Password:"
+send "\r"
+
+expect ">"
+send "n"
+
+expect "new password"
+send "0\r"
+
+expect "repeat new password"
+send "0\r"
+
+expect ">" 
 send "/ip address add address=192.168.200.1/24 interface=ether2\r"
 expect ">"
-
 send "/ip firewall nat add chain=srcnat out-interface=ether1 action=masquerade\r"
 expect ">"
-
 send "/ip route add gateway=192.168.27.1\r"
 expect ">"
-
 send "/ip dhcp-server setup\r"
 expect "Select interface" { send "ether2\r" }
 expect "Select address pool" { send "dhcp_pool\r" }
