@@ -57,7 +57,7 @@ sudo apt install -y isc-dhcp-server iptables iptables-persistent
 cat <<EOF | sudo tee /etc/dhcp/dhcpd.conf
   # A slightly different configuration for an internal subnet.
   subnet 192.168.27.0 netmask 255.255.255.0 {
-    range 192.168.27.10 192.168.27.100;
+    range 192.168.27.2 192.168.27.100;
     option domain-name-servers 192.168.27.1, 8.8.8.8, 8.8.4.4;
     option subnet-mask 255.255.255.0;
     option routers 192.168.27.1;
@@ -91,7 +91,7 @@ else
     success_message "${PROGRES[9]} sudah terinstal"
 fi
 
-sudo ip route add 192.168.200.0/24 via 192.168.27.2 || 
+sudo ip route add 192.168.200.0/24 via 192.168.27.2 
 
 sudo MIKROTIK_IP="192.168.187.132"
 sudo MIKROTIK_PORT="30034"
