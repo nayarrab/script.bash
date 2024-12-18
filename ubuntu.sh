@@ -94,7 +94,7 @@ fi
 sudo ip route add 192.168.200.0/24 via 192.168.27.2 
 
 sudo MIKROTIK_IP="192.168.187.132"
-sudo MIKROTIK_PORT="30034"
+sudo MIKROTIK_PORT="30033"
 sudo CISCO_PORT="30032"
 
 echo -e 
